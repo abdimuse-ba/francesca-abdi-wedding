@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francesca and Abdi's Wedding - Meal Choices</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            max-width: 700px;
+            width: 100%;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            border: 1px solid rgba(216, 184, 168, 0.2);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #d8b8a8;
+        }
+        
+        .names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 300;
+            color: #8b6f5c;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+        
+        .ampersand {
+            font-size: 36px;
+            color: #d8b8a8;
+            margin: 0 10px;
+            font-style: italic;
+        }
+        
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            color: #9a8478;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+        
+        .date {
+            font-weight: 400;
+            color: #8b6f5c;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 12px;
+            color: #8b6f5c;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e8ddd5;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+            background: #fdfbfb;
+        }
+        
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #d8b8a8;
+            background: white;
+            box-shadow: 0 4px 12px rgba(216, 184, 168, 0.15);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+        
+        .meal-option {
+            margin-bottom: 20px;
+            padding: 22px;
+            border: 2px solid #e8ddd5;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #fdfbfb;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .meal-option:hover {
+            border-color: #d8b8a8;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(216, 184, 168, 0.15);
+        }
+        
+        .meal-option.selected {
+            border-color: #d8b8a8;
+            background: linear-gradient(135deg, #fff9f5 0%, #ffffff 100%);
+            box-shadow: 0 6px 20px rgba(216, 184, 168, 0.2);
+        }
+        
+        .meal-option input[type="radio"] {
+            margin-right: 15px;
+            margin-top: 4px;
+            width: 20px;
+            height: 20px;
+            accent-color: #d8b8a8;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .meal-content {
+            flex: 1;
+        }
+        
+        .meal-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 19px;
+            color: #8b6f5c;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        
+        .meal-description {
+            font-size: 14px;
+            color: #9a8478;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        
+        .radio-group {
+            margin-bottom: 20px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            border: 2px solid #e8ddd5;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #fdfbfb;
+        }
+        
+        .radio-option:hover {
+            border-color: #d8b8a8;
+            background: white;
+        }
+        
+        .radio-option.selected {
+            border-color: #d8b8a8;
+            background: linear-gradient(135deg, #fff9f5 0%, #ffffff 100%);
+        }
+        
+        .radio-option input[type="radio"] {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            accent-color: #d8b8a8;
+            cursor: pointer;
+        }
+        
+        .radio-option label {
+            margin: 0;
+            cursor: pointer;
+            font-size: 15px;
+            text-transform: none;
+            color: #8b6f5c;
+            letter-spacing: 0;
+        }
+        
+        .plus-one-section {
+            display: none;
+            margin-top: 25px;
+            padding: 30px;
+            background: linear-gradient(135deg, #fff9f5 0%, #ffffff 100%);
+            border-radius: 12px;
+            border: 1px solid #e8ddd5;
+        }
+        
+        .plus-one-section.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section-divider {
+            border-top: 2px solid #e8ddd5;
+            margin: 45px 0 35px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0 20px;
+            color: #8b6f5c;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #d8b8a8 0%, #c4a89a 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(216, 184, 168, 0.3);
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #c4a89a 0%, #b09688 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(216, 184, 168, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%);
+            color: #2e7d32;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            text-align: center;
+            border: 2px solid #81c784;
+            font-weight: 400;
+        }
+        
+        .helper-text {
+            font-size: 12px;
+            color: #9a8478;
+            margin-top: 8px;
+            font-style: italic;
+            font-weight: 300;
+        }
+        
+        .decorative-line {
+            width: 60px;
+            height: 2px;
+            background: #d8b8a8;
+            margin: 20px auto;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 35px 25px;
+            }
+            
+            .names {
+                font-size: 36px;
+            }
+            
+            .ampersand {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 13px;
+            }
+            
+            .meal-title {
+                font-size: 17px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 15px;
+            }
+            
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .names {
+                font-size: 32px;
+            }
+            
+            .meal-option {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="names">
+                Francesca <span class="ampersand">&</span> Abdi
+            </div>
+            <div class="decorative-line"></div>
+            <div class="subtitle">
+                <span class="date">21st March 2026</span> • Marylebone Home, London
+            </div>
+        </div>
+        
+        <form id="mealForm">
+            <!-- Hidden field to identify which form this is -->
+            <input type="hidden" name="formType" value="Francesca and Abdi">
+            
+            <!-- Main Guest -->
+            <div class="form-group">
+                <label for="guestName">Your Full Name *</label>
+                <input type="text" id="guestName" name="guestName" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Your Main Course *</label>
+                
+                <div class="meal-option" onclick="selectMeal(this, 'guestMeal1')">
+                    <input type="radio" id="guestMeal1" name="guestMeal" value="Maize Fed Chicken Supreme & Smoked London Sausage" required>
+                    <div class="meal-content">
+                        <div class="meal-title">Maize Fed Chicken Supreme & Smoked London Sausage</div>
+                        <div class="meal-description">King Edward & buttered leek hash, seared tender stem broccoli, honey and grain mustard butter cream sauce</div>
+                    </div>
+                </div>
+                
+                <div class="meal-option" onclick="selectMeal(this, 'guestMeal2')">
+                    <input type="radio" id="guestMeal2" name="guestMeal" value="Pan Baked Hake Loin" required>
+                    <div class="meal-content">
+                        <div class="meal-title">Pan Baked Hake Loin</div>
+                        <div class="meal-description">A lightly spiced courgette, aubergine and sweet potato, garlic and parmesan crust, crème fraiche, sundried tomato tapenade</div>
+                    </div>
+                </div>
+                
+                <div class="meal-option" onclick="selectMeal(this, 'guestMeal3')">
+                    <input type="radio" id="guestMeal3" name="guestMeal" value="Charred Aubergine and Watermelon Kebab" required>
+                    <div class="meal-content">
+                        <div class="meal-title">Charred Aubergine and Watermelon Kebab</div>
+                        <div class="meal-description">Confit cherry tomato, artichoke, Basmati & wild rice, parmesan vinaigrette</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="guestDietary">Dietary Requirements or Allergies</label>
+                <textarea id="guestDietary" name="guestDietary" placeholder="Please let us know if you have any dietary requirements or allergies"></textarea>
+            </div>
+            
+            <!-- Plus One Section -->
+            <div class="section-divider">
+                <span class="section-title">Plus One</span>
+            </div>
+            
+            <div class="form-group">
+                <label>Will you be bringing a guest?</label>
+                <div class="radio-group">
+                    <div class="radio-option selected" onclick="selectRadio(this, 'plusOneNo')">
+                        <input type="radio" id="plusOneNo" name="hasPlusOne" value="no" checked>
+                        <label for="plusOneNo">No, just myself</label>
+                    </div>
+                    <div class="radio-option" onclick="selectRadio(this, 'plusOneYes')">
+                        <input type="radio" id="plusOneYes" name="hasPlusOne" value="yes">
+                        <label for="plusOneYes">Yes, I'll be bringing a guest</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="plus-one-section" id="plusOneSection">
+                <div class="form-group">
+                    <label for="plusOneName">Guest's Full Name *</label>
+                    <input type="text" id="plusOneName" name="plusOneName">
+                </div>
+                
+                <div class="form-group">
+                    <label>Guest's Main Course *</label>
+                    
+                    <div class="meal-option" onclick="selectMeal(this, 'plusOneMeal1')">
+                        <input type="radio" id="plusOneMeal1" name="plusOneMeal" value="Maize Fed Chicken Supreme & Smoked London Sausage">
+                        <div class="meal-content">
+                            <div class="meal-title">Maize Fed Chicken Supreme & Smoked London Sausage</div>
+                            <div class="meal-description">King Edward & buttered leek hash, seared tender stem broccoli, honey and grain mustard butter cream sauce</div>
+                        </div>
+                    </div>
+                    
+                    <div class="meal-option" onclick="selectMeal(this, 'plusOneMeal2')">
+                        <input type="radio" id="plusOneMeal2" name="plusOneMeal" value="Pan Baked Hake Loin">
+                        <div class="meal-content">
+                            <div class="meal-title">Pan Baked Hake Loin</div>
+                            <div class="meal-description">A lightly spiced courgette, aubergine and sweet potato, garlic and parmesan crust, crème fraiche, sundried tomato tapenade</div>
+                        </div>
+                    </div>
+                    
+                    <div class="meal-option" onclick="selectMeal(this, 'plusOneMeal3')">
+                        <input type="radio" id="plusOneMeal3" name="plusOneMeal" value="Charred Aubergine and Watermelon Kebab">
+                        <div class="meal-content">
+                            <div class="meal-title">Charred Aubergine and Watermelon Kebab</div>
+                            <div class="meal-description">Confit cherry tomato, artichoke, Basmati & wild rice, parmesan vinaigrette</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="plusOneDietary">Guest's Dietary Requirements or Allergies</label>
+                    <textarea id="plusOneDietary" name="plusOneDietary" placeholder="Please let us know if your guest has any dietary requirements or allergies"></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit Your Choices</button>
+            
+            <div class="success-message" id="successMessage">
+                ✓ Thank you! Your meal choices have been received.
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
+        const scriptURL = 'YOUR_SCRIPT_URL_HERE';
+        
+        // Handle meal option selection
+        function selectMeal(element, radioId) {
+            const radio = document.getElementById(radioId);
+            radio.checked = true;
+            
+            // Remove selected class from siblings
+            const siblings = element.parentElement.querySelectorAll('.meal-option');
+            siblings.forEach(sib => sib.classList.remove('selected'));
+            
+            // Add selected class to clicked element
+            element.classList.add('selected');
+        }
+        
+        // Handle radio option selection
+        function selectRadio(element, radioId) {
+            const radio = document.getElementById(radioId);
+            radio.checked = true;
+            
+            // Remove selected class from siblings
+            const siblings = element.parentElement.querySelectorAll('.radio-option');
+            siblings.forEach(sib => sib.classList.remove('selected'));
+            
+            // Add selected class to clicked element
+            element.classList.add('selected');
+            
+            // Show/hide plus one section
+            const plusOneSection = document.getElementById('plusOneSection');
+            const plusOneName = document.getElementById('plusOneName');
+            const plusOneMealRadios = document.querySelectorAll('input[name="plusOneMeal"]');
+            
+            if (radioId === 'plusOneYes') {
+                plusOneSection.classList.add('show');
+                plusOneName.required = true;
+                plusOneMealRadios.forEach(radio => radio.required = true);
+            } else {
+                plusOneSection.classList.remove('show');
+                plusOneName.required = false;
+                plusOneMealRadios.forEach(radio => radio.required = false);
+                // Clear plus one fields
+                plusOneName.value = '';
+                document.getElementById('plusOneDietary').value = '';
+                plusOneMealRadios.forEach(radio => radio.checked = false);
+                document.querySelectorAll('#plusOneSection .meal-option').forEach(opt => opt.classList.remove('selected'));
+            }
+        }
+        
+        // Form submission
+        document.getElementById('mealForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Disable submit button to prevent double submission
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Send to Google Sheets
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Reset form
+                document.getElementById('mealForm').reset();
+                
+                // Reset visual selections
+                document.querySelectorAll('.meal-option, .radio-option').forEach(opt => opt.classList.remove('selected'));
+                document.getElementById('plusOneSection').classList.remove('show');
+                document.querySelector('.radio-option').classList.add('selected');
+                
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Your Choices';
+                
+                // Scroll to success message
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('successMessage').style.display = 'none';
+                }, 5000);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting your choices. Please try again or contact us directly.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Your Choices';
+            });
+        });
+    </script>
+</body>
+</html>
